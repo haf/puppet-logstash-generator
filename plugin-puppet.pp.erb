@@ -144,13 +144,13 @@ sorted_1.each do |name, config|
 
     $confdirstart = prefix($instances, "${logstash::configdir}/")
     $conffiles    = suffix($confdirstart, "/config/<%=section%>_<% if section=='filter' %>${order}_<%- end%><%=plugin_name%>_${name}")
-    $services     = prefix($instances, 'logstash-')
+    $services     = prefix($instances, $logstash::params::service_base_name)
     $filesdir     = "${logstash::configdir}/files/<%=section%>/<%=plugin_name%>/${name}"
 
   } else {
 
     $conffiles = "${logstash::configdir}/conf.d/<%=section%>_<% if section=='filter' %>${order}_<%- end%><%=plugin_name%>_${name}"
-    $services  = 'logstash'
+    $services  = $logstash::params::service_name
     $filesdir  = "${logstash::configdir}/files/<%=section%>/<%=plugin_name%>/${name}"
 
   }
